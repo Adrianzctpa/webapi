@@ -13,8 +13,8 @@ namespace webapi.Controllers
         }
 
        [HttpPost]
-        public ActionResult<User> PostUser(User user) {
-            return Ok(_userService.PostUser(user));
+        public async Task<ActionResult<ServiceResponse<GetUserResponseDTO>>> PostUser(AddUserResponseDTO user) {
+            return Ok(await _userService.PostUser(user));
         }
     }
 }

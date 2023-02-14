@@ -8,25 +8,31 @@ namespace webapi.Services.PostService
                 Id = 1,
                 AuthorId = 1,
                 Title = "Loremiun",
-                content = "Ipsumlicious 2",
+                Content = "Ipsumlicious 2",
                 viewableBy = Roles.admin
             },  
         };
-        public List<Post> getPosts()
+
+        private readonly IMapper _mapper;
+        public PostService(IMapper mapper)
         {
-            return posts;
+            _mapper = mapper;
+        }
+        public async Task<ServiceResponse<List<GetPostResponseDTO>>> getPosts()
+        {
+            var serviceResp = new ServiceResponse<List<GetPostResponseDTO>> {
+                Data = _mapper.Map<List<GetPostResponseDTO>>(posts)
+            };
+            return serviceResp;
         }
 
-        public Post getPostById(int id)
+        public async Task<ServiceResponse<GetPostResponseDTO>> getPostById(int id)
         {
             var post = posts.FirstOrDefault(p => p.Id == id);
-
-            if (post != null)
-            {
-                return post;
-            }
-
-            throw new Exception("Post not found");
+            var serviceResp = new ServiceResponse<GetPostResponseDTO> {
+                Data = _mapper.Map<GetPostResponseDTO>(post)
+            };
+            return serviceResp;
         }
     }
 }

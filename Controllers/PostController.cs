@@ -14,13 +14,13 @@ namespace webapi.Controllers
 
 
         [HttpGet]
-        public ActionResult<List<Post>> Get() {
-            return Ok(_postService.getPosts());
+        public async Task<ActionResult<ServiceResponse<GetPostResponseDTO>>> GetPost() {
+            return Ok(await _postService.getPosts());
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Post> GetSinglePost(int id) {
-            return Ok(_postService.getPostById(id));
+        public async Task<ActionResult<ServiceResponse<GetPostResponseDTO>>> GetSinglePost(int id) {
+            return Ok(await _postService.getPostById(id));
         }
     }
 }

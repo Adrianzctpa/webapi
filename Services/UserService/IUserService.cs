@@ -2,6 +2,6 @@ namespace webapi.Services.UserService
 {
     public interface IUserService
     {
-        User PostUser(User user);
+        Task<ServiceResponse<GetUserResponseDTO>> PostUser(AddUserResponseDTO user);
     }
 }

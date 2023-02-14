@@ -2,7 +2,7 @@ namespace webapi.Services.PostService
 {
     public interface IPostService
     {
-        List<Post> getPosts();
-        Post getPostById(int id);
+        Task<ServiceResponse<List<GetPostResponseDTO>>> getPosts();
+        Task<ServiceResponse<GetPostResponseDTO>> getPostById(int id);
     }
 }

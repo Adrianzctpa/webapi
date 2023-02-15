@@ -34,5 +34,41 @@ namespace webapi.Services.PostService
             };
             return serviceResp;
         }
+
+        public async Task<ServiceResponse<GetPostResponseDTO>> updatePost(UpdatePostResponseDTO updPost)
+        {   
+            var serviceResp = new ServiceResponse<GetPostResponseDTO>();
+            try {
+                var post = posts.FirstOrDefault(p => p.Id == updPost.Id);
+                if (post is null) {
+                    throw new Exception($"Post with id '{updPost.Id}' not found");
+                }
+
+                _mapper.Map(updPost, post);
+
+                serviceResp.Data = _mapper.Map<GetPostResponseDTO>(post);
+            } catch (Exception ex) {
+                serviceResp.Success = false;
+                serviceResp.Message = ex.Message;
+            }
+            
+            return serviceResp;
+        }
+
+        public async Task<ServiceResponse<List<GetPostResponseDTO>>> deletePost(int id)
+        {
+            var serviceResp = new ServiceResponse<List<GetPostResponseDTO>>();
+            try {
+                var post = posts.First(p => p.Id == id);
+                posts.Remove(post);
+
+                serviceResp.Data = _mapper.Map<List<GetPostResponseDTO>>(posts);
+            } catch (Exception ex) {
+                serviceResp.Success = false;
+                serviceResp.Message = ex.Message;
+            }
+            
+            return serviceResp;
+        }
     }
 }

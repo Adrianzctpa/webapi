@@ -22,5 +22,27 @@ namespace webapi.Controllers
         public async Task<ActionResult<ServiceResponse<GetPostResponseDTO>>> GetSinglePost(int id) {
             return Ok(await _postService.getPostById(id));
         }
+
+        [HttpPut]
+        public async Task<ActionResult<ServiceResponse<GetPostResponseDTO>>> UpdatePost(UpdatePostResponseDTO updPost) {
+            var resp = await _postService.updatePost(updPost);
+
+            if (resp.Data is null) {
+                return NotFound(resp);
+            } 
+
+            return Ok(resp);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ServiceResponse<List<GetPostResponseDTO>>>> DeletePost(int id) {
+            var resp = await _postService.deletePost(id);
+
+            if (resp.Data is null) {
+                return NotFound(resp);
+            } 
+
+            return Ok(resp);
+        }
     }
 }

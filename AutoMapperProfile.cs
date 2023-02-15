@@ -8,6 +8,7 @@ namespace webapi
             CreateMap<Post, GetPostResponseDTO>();
             CreateMap<AddUserResponseDTO, User>();
             CreateMap<User, GetUserResponseDTO>();
+            CreateMap<UpdatePostResponseDTO, Post>();
         }
     }
 }

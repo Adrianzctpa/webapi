@@ -4,7 +4,10 @@ global using webapi.Services.UserService;
 global using webapi.DTOS.Post;
 global using webapi.DTOS.User;
 
+global using Microsoft.EntityFrameworkCore;
 global using AutoMapper;
+
+using webapi.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +20,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<IPostService, PostService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
